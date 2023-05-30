@@ -19,10 +19,13 @@ const register = async ( req, res) => {
           account: account,
           password: hashedPassword,
         };
+
         const createAccount = await users.usersModel.create(userObject);
 
         // res.json(createAccount);
+        req.session.name = name;
         req.session.account = account;
+        req.session.password = hashedPassword;
         res.redirect('/user/home');
       } catch (error) {
         res.json({
@@ -42,8 +45,10 @@ const logout = (req, res) => {
 };
 
 const login  = async (req, res) => {
-    const inputUser = req.body.account;
-    const InputPassword = req.body.password;
+    const account = req.body.account;
+    const password = req.body.password;
+
+    // console.log(inputUser);
 
 
     // const user = users.test.account == inputUser ? users.test : null;
@@ -62,27 +67,34 @@ const login  = async (req, res) => {
     // }
 
     try {
-        const user = await users.usersModel.findOne({ inputUser });
+        const user = await users.usersModel.findOne({ account });
 
+        console.log(user);
         
         if (!user) {
           res.json({
             error: true,
             message: 'User not found!',
           });
-          return;
         }
-        if (await bcrypt.compare(InputPassword, user.password)) {
+
+        if (await bcrypt.compare(password, user.password)) {
         //   const accessToken = generateAccessToken(user);
         //   res.json({ accessToken: accessToken });
-        //   return;
-        req.session.account = account;
-        res.redirect('/user/home');
+        req.session.name = user.name;
+        req.session.account = user.account;
+        req.session.password = user.password;
+
+        console.log(user.name, user.account, user.password);
+         res.redirect('/user/home');
+        
         }
+
         res.json({
           error: true,
           message: 'Invalid credentials!',
         });
+
       } catch (error) {
         res.json({
           error: true,
@@ -90,6 +102,7 @@ const login  = async (req, res) => {
         });
       }
 };
+
 
 module.exports = {
     registerForm,
