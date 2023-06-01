@@ -1,10 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const {
-  getIndividualPosts,
+const { postForm,
+        registerPost,
+        getPost,
+        getIndividualPosts,
 } = require('../controllers/postController');
 
-router.route('/:id').get(getIndividualPosts);
+router.get('/',  postForm);
+router.post('/', registerPost);
+router.get('/showpost', getPost);
+
+ router.route('/:id').get(getIndividualPosts);
 
 module.exports = router;

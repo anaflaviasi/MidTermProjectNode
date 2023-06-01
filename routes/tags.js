@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const { getTags } = require('../controllers/tagsController');
+const { tagsForm, registerTags, getTags, getIndividualTags } = require('../controllers/tagsController');
 
-router.route('/:id').get(getTags);
+router.get('/',  tagsForm);
+router.post('/', registerTags);
+router.get('/showtags', getTags);
+
+ router.route('/:id').get(getIndividualTags);
 
 module.exports = router;

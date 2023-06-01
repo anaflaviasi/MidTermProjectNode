@@ -22,7 +22,6 @@ const register = async ( req, res) => {
 
         const createAccount = await users.usersModel.create(userObject);
 
-        // res.json(createAccount);
         req.session.name = name;
         req.session.account = account;
         req.session.password = hashedPassword;
@@ -48,28 +47,8 @@ const login  = async (req, res) => {
     const account = req.body.account;
     const password = req.body.password;
 
-    // console.log(inputUser);
-
-
-    // const user = users.test.account == inputUser ? users.test : null;
-
-    // let isMatch;
-
-    // if (!user){
-    //     isMatch = await bcrypt.compare(InputPassword, user.password);
-    // }
-
-    // if (!user || !isMatch) return res.send('Invalid username or password');
-
-    // if (isMatch){
-    //     req.session.account = inputUser;
-    //     return res.redirect('/user/home');
-    // }
-
     try {
         const user = await users.usersModel.findOne({ account });
-
-        console.log(user);
         
         if (!user) {
           res.json({
@@ -79,15 +58,11 @@ const login  = async (req, res) => {
         }
 
         if (await bcrypt.compare(password, user.password)) {
-        //   const accessToken = generateAccessToken(user);
-        //   res.json({ accessToken: accessToken });
         req.session.name = user.name;
         req.session.account = user.account;
         req.session.password = user.password;
-
-        console.log(user.name, user.account, user.password);
          res.redirect('/user/home');
-        
+         return;
         }
 
         res.json({

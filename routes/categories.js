@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const { getCateogories } = require('../controllers/categoriesController');
+const { categoriesForm, registerCategories, getCateogories, getIndividualCategories } = require('../controllers/categoriesController');
 
-router.route('/:id').get(getCateogories);
+router.get('/',  categoriesForm);
+router.post('/', registerCategories);
+router.get('/showcategories', getCateogories);
+
+ router.route('/:id').get(getIndividualCategories);
 
 module.exports = router;

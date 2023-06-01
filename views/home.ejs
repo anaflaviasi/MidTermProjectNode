@@ -18,14 +18,17 @@
         </button>
         <div class="navbar-collapse collapse show" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" aria-current="page" href="/home">Home</a>
+            </li> -->
+            <li class="nav-item">
+              <a class="nav-link" href="/post">Post</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/authorization/register">Register</a>
+              <a class="nav-link" href="/categories">Categories</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/authorization/login">Login</a>
+              <a class="nav-link" href="/tags">Tags</a>
             </li>
           </ul>
         </div>
@@ -51,6 +54,40 @@
             </div>
         </div>
     </div>
+
+    <div class="container mt-4">
+      <div class="card" style="width: 30rem;">
+        <div class="row g-3">
+          <form method="post" action="/post">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="user-post" name="post" placeholder="Enter the Post" aria-label="">
+            </div> 
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        
+          <form method="post" action="/categories">
+          <div class="mb-3">
+            <input type="text" class="form-control" id="user-cat" name="categories" placeholder="Enter the Category" aria-label=""> 
+          </div> 
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          </form>
+       
+          <form method="post" action="/tags">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="user-tag" name="tags" placeholder="Enter the Tag" aria-label="">
+            </div> 
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
 </body>
 
 </html>
